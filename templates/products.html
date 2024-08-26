@@ -1,0 +1,136 @@
+{%extends 'index.html'%}
+{%block main%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            
+        }
+        .container1{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            font-size: 25px;
+            margin: 60px;
+        }
+        img{
+            display: block;
+            object-fit: cover;
+            
+        }
+        .container2{
+            margin: 20px;
+            padding: 10px;
+            width: 250px;
+            height: 360px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 10px;
+        }
+        .desc{
+            color: #5a5a5a;
+            font-size: 20px;
+            margin: 3px;
+        }
+button{
+  margin: 10px;
+  padding: 15px 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+  border: 0px;
+  font-weight: 700;
+  box-shadow: 0px 0px 14px -7px #f09819;
+  background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+.container3{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.imageDiv{
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+}
+    </style>
+   
+</head>
+<body>
+    <div class="container1">
+    {%for i in data%}
+    <div class="container2">
+    <div class="imageDiv">
+    <img src="/media/{{i.image}}" alt="alt" width="300">
+</div>
+    
+    <b>{{i.name}}</b>
+    <p class="desc">{{i.description}}</p>
+    <div class="container3">
+        <div class="container4">
+    <b>Rs. {{i.price}}</b>
+</div>
+    <div class="btn">
+        <button type="button" data-product-id="{{ i.pid }}" onclick="addToCart(this.getAttribute('data-product-id'))">Cart</button>
+
+    </div>
+</div>
+    </div>
+    {%endfor%}
+</div>
+</body>
+</html>
+<script>
+    function addToCart(event) {
+        const productId = event.target.getAttribute('data-product-id');
+        
+        // Get CSRF token
+        const csrfTokenElement = document.getElementsByName('csrfmiddlewaretoken')[0];
+        if (!csrfTokenElement) {
+            console.error('CSRF token not found!');
+            return;
+        }
+        
+        const csrfToken = csrfTokenElement.value;
+
+        fetch('/add-to-cart/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': csrfToken
+            },
+            body: `product_id=${encodeURIComponent(productId)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+{%endblock%}

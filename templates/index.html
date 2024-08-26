@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Grocery Store</title>
+    <style>
+        body{
+            display: flex;
+            position: relative;
+        }
+        nav{
+            position: fixed;
+            top: 0;
+            left:0;
+            right: 0;
+        }
+        footer{
+            position: fixed;
+            bottom: 0;
+            left:0;
+            right: 0;
+        }
+        /* Internal Styling */
+
+        /* Navigation Bar */
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            height: 30px;
+            
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            font-size: larger;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        nav ul li a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+
+        /* Daily Best Offers Section */
+        .offers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+            margin-top: 20px;
+            margin: 60px;
+        }
+
+        .offer {
+            background-color: #f9f9f9;
+            border: 1px solid #ffffff;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            padding: 20px;
+            text-align: center;
+            width: 250px;
+            height: 250px;
+            margin-bottom: 10px;
+        }
+
+        .offer h3 {
+            margin-top: 0;
+        }
+
+        .offer img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .offer p {
+            color: #555;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+        }
+        img{
+            display: block;
+           object-fit: cover;
+        }
+        .im{
+            width: 200px;
+    height: 200px;
+    overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            {%if request.user.is_authenticated%}
+            <li><a href="/products">Products</a></li>
+            <li><a href="/cart">Cart</a></li>
+            <li><a href="/logout">Logout</a></li>
+            {%else%}
+            <li><a href="/signup">Sign Up</a></li>
+            <li><a href="/signin">Login</a></li>
+            {%endif%}
+        </ul>
+    </nav>
+   
+    {%block main%}
+    <!-- Daily Best Offers Section -->
+    <section>
+        <h2>Daily Best Offers</h2>
+        <div class="offers">
+            <!-- Example Offer with Image -->
+            <div class="offer">
+                <h3>Fresh Vegetables</h3>
+                <div class="im"><img src="static\images\sample.jpeg" alt="Fresh Vegetables"></div>
+                <p>Get up to 20% off on fresh vegetables.</p>
+            </div>
+
+            <div class="offer">
+                <h3>Dairy Products</h3>
+                <div class="im"><img src="static\images\sample.jpeg" alt="Fresh Vegetables"></div>                <p>Buy 1 Get 1 Free on select dairy products.</p>
+            </div>
+
+            <div class="offer">
+                <h3>Organic Fruits</h3>
+                <div class="im"><img src="static\images\sample.jpeg" alt="Fresh Vegetables"></div>                <p>Flat 15% off on all organic fruits.</p>
+            </div>
+            <div class="offer">
+                <h3>Dairy Products</h3>
+                <div class="im"><img src="static\images\sample.jpeg" alt="Fresh Vegetables"></div>                <p>Buy 1 Get 1 Free on select dairy products.</p>
+            </div>
+            <div class="offer">
+                <h3>Dairy Products</h3>
+                <div class="im"><img src="static\images\sample.jpeg" alt="Fresh Vegetables"></div>
+                <p>Buy 1 Get 1 Free on select dairy products.</p>
+            </div>
+            <div class="offer">
+                <h3>Dairy Products</h3>
+                <div class="im"><img src="static\images\sample.jpeg" alt="Fresh Vegetables"></div>
+                <p>Buy 1 Get 1 Free on select dairy products.</p>
+            </div>
+            <div class="offer">
+                <h3>Dairy Products</h3>
+                <div class="im"><img src="static\images\sample.jpeg" alt="Fresh Vegetables"></div>
+                <p>Buy 1 Get 1 Free on select dairy products.</p>
+            </div>
+            <div class="offer">
+                <h3>Dairy Products</h3>
+                <div class="im"><img src="static\images\sample.jpeg" alt="Fresh Vegetables"></div>
+                <p>Buy 1 Get 1 Free on select dairy products.</p>
+            </div>
+            <div class="offer">
+                <h3>Dairy Products</h3>
+                <div class="im"><img src="static\images\sample.jpeg" alt="Fresh Vegetables"></div>
+                <p>Buy 1 Get 1 Free on select dairy products.</p>
+            </div>
+            
+            <!-- Add more offers as needed -->
+        </div>
+    </section>
+    {%endblock%}
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Grocery Store. All rights reserved.</p>
+    </footer>
+</body>
+</html>
